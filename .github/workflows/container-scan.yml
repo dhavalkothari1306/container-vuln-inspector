@@ -1,0 +1,95 @@
+name: Container Vulnerability Scan
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  security-events: write
+  actions: read
+
+env:
+  IMAGE_NAME: supply-chain-inspector-demo
+  INTAKE_DIR: data/intake
+
+jobs:
+  scan-and-deposit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build sample image
+        run: |
+          docker build -t "${IMAGE_NAME}:${GITHUB_SHA}" ./sample_app
+
+      - name: Run Trivy vulnerability scan (JSON)
+        uses: aquasecurity/trivy-action@0.28.0
+        with:
+          image-ref: "${{ env.IMAGE_NAME }}:${{ github.sha }}"
+          format: json
+          output: trivy-report.json
+          exit-code: "0"
+          ignore-unfixed: false
+          severity: CRITICAL,HIGH,MEDIUM,LOW
+
+      - name: Run Trivy vulnerability scan (SARIF)
+        uses: aquasecurity/trivy-action@0.28.0
+        with:
+          image-ref: "${{ env.IMAGE_NAME }}:${{ github.sha }}"
+          format: sarif
+          output: trivy-report.sarif
+          exit-code: "0"
+
+      - name: Deposit scan reports into data intake
+        run: |
+          mkdir -p "${INTAKE_DIR}"
+          # Stamp CI reports so local sample_*.json fixtures remain untouched
+          cp trivy-report.json "${INTAKE_DIR}/ci-trivy-${GITHUB_SHA}.json"
+          cp trivy-report.sarif "${INTAKE_DIR}/ci-trivy-${GITHUB_SHA}.sarif"
+          ls -la "${INTAKE_DIR}"
+
+      - name: Upload scan JSON artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: container-scan-reports
+          path: |
+            trivy-report.json
+            trivy-report.sarif
+            ${{ env.INTAKE_DIR }}/ci-trivy-*.json
+            ${{ env.INTAKE_DIR }}/ci-trivy-*.sarif
+          retention-days: 30
+
+      - name: Upload SARIF to GitHub Code Scanning
+        uses: github/codeql-action/upload-sarif@v3
+        continue-on-error: true
+        with:
+          sarif_file: trivy-report.sarif
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install inspector dependencies
+        run: pip install -r requirements.txt
+
+      - name: Evaluate risk gates from intake reports
+        id: risk
+        run: |
+          python -m app.cli --intake "${INTAKE_DIR}" --fail-on BLOCK --json-out risk-summary.json
+          echo "Risk summary:"
+          cat risk-summary.json
+
+      - name: Upload risk summary
+        uses: actions/upload-artifact@v4
+        with:
+          name: risk-summary
+          path: risk-summary.json
+          retention-days: 30

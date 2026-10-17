@@ -1,0 +1,64 @@
+{
+  "projectName": "demo-frontend",
+  "image": "demo-frontend:2.0.1",
+  "docker": {
+    "baseImage": "node:18-bullseye-slim"
+  },
+  "vulnerabilities": [
+    {
+      "id": "SNYK-DEBIAN11-OPENSSL-6148880",
+      "identifiers": {"CVE": ["CVE-2023-5363"]},
+      "title": "Improper Authentication",
+      "severity": "high",
+      "cvssScore": 7.5,
+      "packageName": "openssl",
+      "version": "1.1.1n-0+deb11u5",
+      "fixedIn": ["1.1.1n-0+deb11u6"],
+      "publicationTime": "2023-10-24T00:00:00Z"
+    },
+    {
+      "id": "SNYK-JS-SEMVER-3247795",
+      "identifiers": {"CVE": ["CVE-2022-25883"]},
+      "title": "Regular Expression Denial of Service (ReDoS)",
+      "severity": "medium",
+      "cvssScore": 5.3,
+      "packageName": "semver",
+      "version": "5.7.1",
+      "fixedIn": ["5.7.2", "6.3.1", "7.5.2"],
+      "publicationTime": "2023-06-21T00:00:00Z"
+    },
+    {
+      "id": "SNYK-JS-WORDWRAP-3149973",
+      "identifiers": {"CVE": ["CVE-2023-26115"]},
+      "title": "Regular Expression Denial of Service (ReDoS)",
+      "severity": "low",
+      "cvssScore": 3.7,
+      "packageName": "word-wrap",
+      "version": "1.2.3",
+      "fixedIn": ["1.2.4"],
+      "publicationTime": "2023-03-09T00:00:00Z"
+    },
+    {
+      "id": "SNYK-DEBIAN11-CURL-5881097",
+      "identifiers": {"CVE": ["CVE-2023-38545"]},
+      "title": "Heap-based Buffer Overflow",
+      "severity": "critical",
+      "cvssScore": 9.8,
+      "packageName": "curl",
+      "version": "7.74.0-1.3+deb11u10",
+      "fixedIn": ["7.74.0-1.3+deb11u11"],
+      "publicationTime": "2023-10-11T00:00:00Z"
+    },
+    {
+      "id": "SNYK-JS-TOUGHCOOKIE-5672873",
+      "identifiers": {"CVE": ["CVE-2023-26136"]},
+      "title": "Prototype Pollution",
+      "severity": "medium",
+      "cvssScore": 6.5,
+      "packageName": "tough-cookie",
+      "version": "2.5.0",
+      "fixedIn": ["4.1.3"],
+      "publicationTime": "2023-07-01T00:00:00Z"
+    }
+  ]
+}

@@ -1,0 +1,99 @@
+{
+  "SchemaVersion": 2,
+  "ArtifactName": "demo-api:1.2.1-hotfix",
+  "ArtifactType": "container_image",
+  "Metadata": {
+    "OS": {"Family": "alpine", "Name": "3.19.1"},
+    "RepoTags": ["demo-api:1.2.1-hotfix"],
+    "ImageConfig": {"os": {"name": "alpine:3.19.1"}}
+  },
+  "Results": [
+    {
+      "Target": "demo-api:1.2.1-hotfix (alpine 3.19.1)",
+      "Class": "os-pkgs",
+      "Type": "alpine",
+      "Vulnerabilities": [
+        {
+          "VulnerabilityID": "CVE-2024-5535",
+          "PkgName": "openssl",
+          "InstalledVersion": "3.1.4-r5",
+          "FixedVersion": "3.1.6-r0",
+          "Severity": "CRITICAL",
+          "Title": "openssl: SSL_select_next_proto buffer overread",
+          "PublishedDate": "2024-06-27T00:00:00Z",
+          "CVSS": {"nvd": {"V3Score": 9.1}}
+        },
+        {
+          "VulnerabilityID": "CVE-2024-4741",
+          "PkgName": "openssl",
+          "InstalledVersion": "3.1.4-r5",
+          "FixedVersion": "3.1.6-r0",
+          "Severity": "HIGH",
+          "Title": "openssl: use-after-free with SSL_free_buffers",
+          "PublishedDate": "2024-05-28T00:00:00Z",
+          "CVSS": {"nvd": {"V3Score": 7.5}}
+        },
+        {
+          "VulnerabilityID": "CVE-2024-4603",
+          "PkgName": "openssl",
+          "InstalledVersion": "3.1.4-r5",
+          "FixedVersion": "3.1.5-r0",
+          "Severity": "MEDIUM",
+          "Title": "openssl: unbounded memory growth checking DSA keys",
+          "PublishedDate": "2024-05-16T00:00:00Z",
+          "CVSS": {"nvd": {"V3Score": 5.3}}
+        },
+        {
+          "VulnerabilityID": "CVE-2023-42366",
+          "PkgName": "busybox",
+          "InstalledVersion": "1.36.1-r15",
+          "FixedVersion": "1.36.1-r16",
+          "Severity": "MEDIUM",
+          "Title": "busybox: awk use-after-free",
+          "PublishedDate": "2023-11-27T00:00:00Z",
+          "CVSS": {"nvd": {"V3Score": 5.5}}
+        },
+        {
+          "VulnerabilityID": "CVE-2024-27280",
+          "PkgName": "ruby",
+          "InstalledVersion": "3.2.2-r0",
+          "FixedVersion": "3.2.4-r0",
+          "Severity": "HIGH",
+          "Title": "ruby: buffer over-read in StringIO",
+          "PublishedDate": "2024-03-21T00:00:00Z",
+          "CVSS": {"nvd": {"V3Score": 7.0}}
+        },
+        {
+          "VulnerabilityID": "CVE-2024-28180",
+          "PkgName": "go-jose",
+          "InstalledVersion": "2.6.0",
+          "FixedVersion": "2.6.3",
+          "Severity": "CRITICAL",
+          "Title": "go-jose: decompress DoS in JWE",
+          "PublishedDate": "2024-03-09T00:00:00Z",
+          "CVSS": {"nvd": {"V3Score": 9.0}}
+        },
+        {
+          "VulnerabilityID": "CVE-2023-45288",
+          "PkgName": "golang.org/x/net",
+          "InstalledVersion": "0.17.0",
+          "FixedVersion": "0.23.0",
+          "Severity": "HIGH",
+          "Title": "HTTP/2 CONTINUATION flood",
+          "PublishedDate": "2024-04-03T00:00:00Z",
+          "CVSS": {"nvd": {"V3Score": 7.5}}
+        },
+        {
+          "VulnerabilityID": "CVE-2022-41723",
+          "PkgName": "golang.org/x/net",
+          "InstalledVersion": "0.17.0",
+          "FixedVersion": "0.17.0",
+          "Severity": "LOW",
+          "Title": "hpack denial of service",
+          "PublishedDate": "2023-02-17T00:00:00Z",
+          "CVSS": {"nvd": {"V3Score": 3.7}}
+        }
+      ]
+    }
+  ]
+}

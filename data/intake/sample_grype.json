@@ -1,0 +1,78 @@
+{
+  "source": {
+    "type": "image",
+    "name": "demo-worker:0.9.4",
+    "target": {
+      "userInput": "demo-worker:0.9.4",
+      "imageID": "sha256:abc123"
+    }
+  },
+  "distro": {"name": "debian", "version": "12"},
+  "matches": [
+    {
+      "vulnerability": {
+        "id": "CVE-2023-4911",
+        "severity": "Critical",
+        "description": "glibc looney-tunables buffer overflow",
+        "fix": ["2.36-9+deb12u3"],
+        "cvss": [{"metrics": {"baseScore": 7.8}}]
+      },
+      "relatedVulnerabilities": [
+        {"id": "CVE-2023-4911", "published": "2023-10-03T00:00:00Z"}
+      ],
+      "artifact": {"name": "libc6", "version": "2.36-9+deb12u1"}
+    },
+    {
+      "vulnerability": {
+        "id": "CVE-2024-2961",
+        "severity": "High",
+        "description": "glibc iconv buffer overflow",
+        "fix": ["2.36-9+deb12u6"],
+        "cvss": [{"metrics": {"baseScore": 8.8}}]
+      },
+      "relatedVulnerabilities": [
+        {"id": "CVE-2024-2961", "published": "2024-04-17T00:00:00Z"}
+      ],
+      "artifact": {"name": "libc6", "version": "2.36-9+deb12u1"}
+    },
+    {
+      "vulnerability": {
+        "id": "CVE-2023-44487",
+        "severity": "High",
+        "description": "HTTP/2 Rapid Reset",
+        "fix": ["1.18.0-6.1+deb12u1"],
+        "cvss": [{"metrics": {"baseScore": 7.5}}]
+      },
+      "relatedVulnerabilities": [
+        {"id": "CVE-2023-44487", "published": "2023-10-10T00:00:00Z"}
+      ],
+      "artifact": {"name": "libnghttp2-14", "version": "1.52.0-1"}
+    },
+    {
+      "vulnerability": {
+        "id": "CVE-2022-48554",
+        "severity": "Medium",
+        "description": "file out-of-bounds read",
+        "fix": [],
+        "cvss": [{"metrics": {"baseScore": 5.5}}]
+      },
+      "relatedVulnerabilities": [
+        {"id": "CVE-2022-48554", "published": "2023-06-19T00:00:00Z"}
+      ],
+      "artifact": {"name": "libmagic1", "version": "1:5.44-3"}
+    },
+    {
+      "vulnerability": {
+        "id": "CVE-2021-46848",
+        "severity": "Low",
+        "description": "libtasn1 out-of-bounds access",
+        "fix": ["4.19.0-2"],
+        "cvss": [{"metrics": {"baseScore": 3.3}}]
+      },
+      "relatedVulnerabilities": [
+        {"id": "CVE-2021-46848", "published": "2022-10-24T00:00:00Z"}
+      ],
+      "artifact": {"name": "libtasn1-6", "version": "4.18.0-4"}
+    }
+  ]
+}
