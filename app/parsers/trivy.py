@@ -40,12 +40,23 @@ def _extract_cvss(vuln: dict[str, Any]) -> float | None:
 def _image_meta(payload: dict[str, Any], source_file: str) -> tuple[str, str]:
     artifact = payload.get("ArtifactName") or Path(source_file).stem
     metadata = payload.get("Metadata") or {}
-    base = (
-        metadata.get("ImageConfig", {}).get("os", {}).get("name")
-        or metadata.get("OS", {}).get("Family")
-        or metadata.get("RepoTags", [None])[0]
-        or artifact
+
+    os_dict = metadata.get("OS") if isinstance(metadata.get("OS"), dict) else {}
+    os_family = os_dict.get("Family")
+    os_name = f"{os_family} {os_dict.get('Name', '')}".strip() if os_family else None
+
+    image_config = metadata.get("ImageConfig") if isinstance(metadata.get("ImageConfig"), dict) else {}
+    config_os = image_config.get("os")
+    config_os_str = (
+        config_os.get("name")
+        if isinstance(config_os, dict)
+        else (config_os if isinstance(config_os, str) else None)
     )
+
+    repo_tags = metadata.get("RepoTags")
+    first_tag = repo_tags[0] if isinstance(repo_tags, list) and repo_tags else None
+
+    base = os_name or config_os_str or first_tag or artifact
     if isinstance(base, list):
         base = base[0] if base else artifact
     return str(artifact), str(base)
