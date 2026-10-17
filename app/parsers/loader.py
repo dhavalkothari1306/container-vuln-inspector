@@ -21,6 +21,8 @@ def discover_reports(intake_dir: Path | str | None = None) -> list[Path]:
     root = Path(intake_dir) if intake_dir else DEFAULT_INTAKE
     if not root.exists():
         return []
+    if root.is_file():
+        return [root]
     files = sorted(root.glob("*.json")) + sorted(root.glob("*.sarif"))
     return [p for p in files if p.is_file()]
 

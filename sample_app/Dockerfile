@@ -1,5 +1,5 @@
-# Minimal sample image used by CI to demonstrate container scanning.
-FROM python:3.12-slim
+# Minimal hardened sample image used by CI to demonstrate container scanning.
+FROM python:3.12-alpine
 
 WORKDIR /app
 COPY hello.py .

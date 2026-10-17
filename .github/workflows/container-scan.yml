@@ -50,9 +50,7 @@ jobs:
       - name: Deposit scan reports into data intake
         run: |
           mkdir -p "${INTAKE_DIR}"
-          # Stamp CI reports so local sample_*.json fixtures remain untouched
           cp trivy-report.json "${INTAKE_DIR}/ci-trivy-${GITHUB_SHA}.json"
-          cp trivy-report.sarif "${INTAKE_DIR}/ci-trivy-${GITHUB_SHA}.sarif"
           ls -la "${INTAKE_DIR}"
 
       - name: Upload scan JSON artifact
@@ -63,7 +61,6 @@ jobs:
             trivy-report.json
             trivy-report.sarif
             ${{ env.INTAKE_DIR }}/ci-trivy-*.json
-            ${{ env.INTAKE_DIR }}/ci-trivy-*.sarif
           retention-days: 30
 
       - name: Upload SARIF to GitHub Code Scanning
@@ -83,7 +80,7 @@ jobs:
       - name: Evaluate risk gates from intake reports
         id: risk
         run: |
-          python -m app.cli --intake "${INTAKE_DIR}" --fail-on BLOCK --json-out risk-summary.json
+          python -m app.cli --intake "${INTAKE_DIR}/ci-trivy-${GITHUB_SHA}.json" --fail-on BLOCK --json-out risk-summary.json
           echo "Risk summary:"
           cat risk-summary.json
 
